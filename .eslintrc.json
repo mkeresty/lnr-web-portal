@@ -1,0 +1,30 @@
+{
+    "env": {
+        "browser": true,
+        "amd": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6
+      },
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-console": "off",
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}
