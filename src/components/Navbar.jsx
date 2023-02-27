@@ -16,16 +16,15 @@ import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import LNR from '../utils/lnr-ethers-1.1.0';
-import LNR_WEB from  '../utils/lnr-web-0.1.5';
+
 
 import { ethers } from 'ethers';
 import Alert from '@mui/material/Alert';
 
 
 
-// const LNR = require("../utils/lnr-ethers-1.1.0")
-// const LNR_WEB = require('../utils/lnr-web-0.1.5')
+const LNR = require("../utils/lnr-ethers-1.1.0")
+const LNR_WEB = require('../utils/lnr-web-0.1.5')
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
