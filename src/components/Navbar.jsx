@@ -296,14 +296,11 @@ export default function Navbar() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Drawer
-      anchorEl={mobileMoreAnchorEl}
+
       anchor={"top"}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
+
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
       style={{textAlign: "center", alignItems: "center", justifyContent: 'center'}}
