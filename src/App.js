@@ -36,6 +36,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Navbar />
     <div className="App">
+      
     <iframe id="chain_frame" className="frame">
     
     </iframe>
