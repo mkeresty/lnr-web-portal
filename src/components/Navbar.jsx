@@ -17,6 +17,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import { ethers } from 'ethers';
 import Alert from '@mui/material/Alert';
 
+import LNR from '../modules/lnr.mjs';
+import LNR_WEB from '../modules/lnr_web.mjs'
+
 // const LNR = require("LNR");
 // const LNR_WEB= require("LNR_WEB")
 
@@ -150,7 +153,7 @@ export default function Navbar() {
 
     }
     if(searchName && searchName.length > 1 && !searchName.endsWith(".og")){
-      if(typeof(window.og.lnrWeb) === "undefined"){
+      if(typeof(window.og) === "undefined" || typeof(window.og.lnrWeb) === "undefined"){
         return(handleAlert("con"))
       }
       setSearchName(searchName + ".og")
@@ -183,12 +186,12 @@ export default function Navbar() {
   // //console.log("lnr is", LNR)
 
   const connectWallet = async()=>{
-    if(!window.LNR || !window.LNR_WEB){
-      return(handleAlert("oops"))
-    }
+    // if(!window.LNR || !window.LNR_WEB){
+    //   return(handleAlert("oops"))
+    // }
 
 
-    console.log("window isssss", window.LNR)
+    console.log("window isssss", LNR)
 
     if(!address){
       var og = {
@@ -203,9 +206,9 @@ export default function Navbar() {
       //console.log("clicked")
       await provider.send("eth_requestAccounts", []);
       var signer = provider.getSigner();
-      var lnr = new window.LNR(ethers, signer);
+      var lnr = new LNR(ethers, signer);
       
-      var lnrWeb = new window.LNR_WEB(lnr, provider);
+      var lnrWeb = new LNR_WEB(lnr, provider);
       var wallet = await signer.getAddress();
       //console.log("lnrweb is", wallet, lnrWeb);
       og.signer = signer;
