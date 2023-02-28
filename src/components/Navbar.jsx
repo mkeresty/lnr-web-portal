@@ -205,10 +205,20 @@ export default function Navbar() {
   
       //console.log("clicked")
       await provider.send("eth_requestAccounts", []);
-      var signer = provider.getSigner();
+      const signer = provider.getSigner();
+
+      console.log("provider ios", provider)
+      
       var lnr = new LNR(ethers, signer);
+      if(!provider){
+        return(handleAlert("oops"))
+      }
       
       var lnrWeb = new LNR_WEB(lnr, provider);
+      if(!lnrWeb){
+        return(handleAlert("oops"))
+      }
+      
       var wallet = await signer.getAddress();
       //console.log("lnrweb is", wallet, lnrWeb);
       og.signer = signer;
