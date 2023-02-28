@@ -183,6 +183,11 @@ export default function Navbar() {
   // //console.log("lnr is", LNR)
 
   const connectWallet = async()=>{
+    if(!window.LNR || !window.LNR_WEB){
+      return(handleAlert("oops"))
+    }
+
+
     console.log("window isssss", window.LNR)
 
     if(!address){
