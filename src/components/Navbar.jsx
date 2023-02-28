@@ -14,7 +14,7 @@ import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { ethers } from 'ethers';
+import { ethers, BrowserProvider } from 'ethers';
 import Alert from '@mui/material/Alert';
 
 import LNR from '../modules/lnr.mjs';
@@ -92,7 +92,8 @@ export default function Navbar() {
 
 
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = ((window.ethereum != null) ? new ethers.providers.Web3Provider(window.ethereum) : ethers.providers.getDefaultProvider());
 
 
   const handleAlert = (msg) =>{
@@ -207,14 +208,14 @@ export default function Navbar() {
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
 
-      console.log("provider ios", ethers.providers.Web3Provider)
+      console.log("provider ios", provider)
       
       var lnr = new LNR(ethers, signer);
       if(!provider){
         return(handleAlert("oops"))
       }
       
-      var lnrWeb = new LNR_WEB(lnr, ethers.providers.Web3Provider);
+      var lnrWeb = new LNR_WEB(lnr, provider);
       if(!lnrWeb){
         return(handleAlert("oops"))
       }
