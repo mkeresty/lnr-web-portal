@@ -9,16 +9,24 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <script src="./lnr-ethers-1.1.0.js"  type="application/javascript"></script>
-    <script src="./lnr-web-0.1.5.js"  type="application/javascript"></script>
-    <!-- <script type="importmap">
+    <!-- <script src="./lnr-ethers-module-1.1.0.js"  type="application/javascript"></script>
+    <script src="./lnr-web-0.1.5.js"  type="application/javascript"></script> -->
+    <script type="importmap">
       {
         "imports": {
-          "LNR": "./lnr-ethers-1.1.0.js",
-          "LNR_WEB": "./lnr-web-0.1.5.js"
+          "LNR": "./lnr-ethers-module-1.1.0.js",
+          "LNR_WEB": "./lnr-web-module-0.1.6.js"
         }
       }
-    </script> -->
+    </script>
+    <script type="module">
+      import LNR from 'LNR';
+      console.log("lnr is", LNR)
+    </script>
+        <script type="module">
+          import LNR_WEB from 'LNR_WEB';
+          console.log("lnr web is", LNR_WEB)
+        </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a

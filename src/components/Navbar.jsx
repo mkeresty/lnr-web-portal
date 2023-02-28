@@ -1,7 +1,7 @@
 /* eslint no-undef: "off"*/
 
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy } from 'react';
 import '../App.css';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -17,14 +17,22 @@ import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
+// import LNR from '../../publicLNR';
+// import LNR_WEB from '../../public/LNR_WEB'
+
 
 import { ethers } from 'ethers';
 import Alert from '@mui/material/Alert';
 
 
 
-const LNR = require("../utils/lnr-ethers-1.1.0")
-const LNR_WEB = require('../utils/lnr-web-0.1.5')
+// const LNR = require("../utils/lnr-ethers-1.1.0")
+// const LNR_WEB = require('../utils/lnr-web-0.1.5')
+
+// const LNR = await import("../utils/lnr-ethers-1.1.0")
+// const LNR_WEB = await import('../utils/lnr-web-0.1.5')
+
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
