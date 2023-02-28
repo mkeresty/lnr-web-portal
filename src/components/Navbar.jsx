@@ -1,5 +1,3 @@
-/* eslint no-undef: "off"*/
-
 import * as React from 'react';
 import { useState, useEffect, lazy } from 'react';
 import '../App.css';
@@ -16,13 +14,21 @@ import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import ListItemIcon from '@mui/material/ListItemIcon';
-
-// import LNR from '../../publicLNR';
-// import LNR_WEB from '../../public/LNR_WEB'
-
-
 import { ethers } from 'ethers';
 import Alert from '@mui/material/Alert';
+
+// const LNR = require("LNR");
+// const LNR_WEB= require("LNR_WEB")
+
+// "LNR": "./lnr-ethers-module-1.1.0.js",
+// "LNR_WEB": "./lnr-web-module-0.1.6.js"
+
+// /*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
+// import * as LNR from "./lnr-ethers-module-1.1.0.js";
+// /*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
+// import * as LNR_WEB from './lnr-web-module-0.1.6.js'
+
+
 
 
 
@@ -176,10 +182,11 @@ export default function Navbar() {
 
   // //console.log("lnr is", LNR)
 
-  async function connectWallet(){
+  const connectWallet = async()=>{
+    console.log("window isssss", window.LNR)
 
     if(!address){
-      let og = {
+      var og = {
         ethers: ethers,
         signer: null,
         provider: null,
@@ -191,10 +198,10 @@ export default function Navbar() {
       //console.log("clicked")
       await provider.send("eth_requestAccounts", []);
       var signer = provider.getSigner();
-      var lnr = new LNR(ethers, signer);
+      var lnr = new window.LNR(ethers, signer);
       
-      var lnrWeb = new LNR_WEB(lnr, provider);
-      let wallet = await signer.getAddress();
+      var lnrWeb = new window.LNR_WEB(lnr, provider);
+      var wallet = await signer.getAddress();
       //console.log("lnrweb is", wallet, lnrWeb);
       og.signer = signer;
       og.provider = provider;
