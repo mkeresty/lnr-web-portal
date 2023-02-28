@@ -10,28 +10,30 @@
       content="Web site created using create-react-app"
     />
     <!-- <script src="./lnr-ethers-module-1.1.0.js"  type="application/javascript"></script>
-    <script src="./lnr-web-0.1.5.js"  type="application/javascript"></script> -->
+    <script src="./lnr-web-module-0.1.6.js"  type="application/javascript"></script> -->
     <script type="importmap">
       {
         "imports": {
-          "LNR": "./lnr-ethers-module-1.1.0.js",
-          "LNR_WEB": "./lnr-web-module-0.1.6.js"
+          "LNR": "/lnr-ethers-module-1.1.0.js",
+          "LNR_WEB": "/lnr-web-module-0.1.6.js"
         }
       }
     </script>
     <script type="module">
-      import LNR from 'LNR';
+      //import LNR from './lnr-ethers-module-1.1.0.js';
+      import LNR from 'LNR'
 
-        if(LNR){
+        if(typeof(LNR) !== "undefined"){
           window.LNR = LNR
           console.log("lnr is", LNR)
         }
       
     </script>
         <script type="module">
-          import LNR_WEB from 'LNR_WEB';
+          //import LNR_WEB from './lnr-web-module-0.1.6.js';
+          import LNR_WEB from 'LNR_WEB'
 
-          if(LNR_WEB){
+          if(typeof(LNR_WEB) !== "undefined"){
             window.LNR_WEB = LNR_WEB
             console.log("lnr web is", LNR_WEB)
         }
