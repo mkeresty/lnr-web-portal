@@ -205,20 +205,16 @@ export default function Navbar() {
   
       //console.log("clicked")
       await provider.send("eth_requestAccounts", []);
-
-      
       const signer = provider.getSigner();
 
-      window.lnrProvider = provider
-
-      console.log("provider ios", provider)
+      console.log("provider ios", ethers.providers.Web3Provider)
       
       var lnr = new LNR(ethers, signer);
-      if(!window.lnrProvider){
+      if(!provider){
         return(handleAlert("oops"))
       }
       
-      var lnrWeb = new LNR_WEB(lnr, window.lnrProvider);
+      var lnrWeb = new LNR_WEB(lnr, ethers.providers.Web3Provider);
       if(!lnrWeb){
         return(handleAlert("oops"))
       }
@@ -226,7 +222,7 @@ export default function Navbar() {
       var wallet = await signer.getAddress();
       //console.log("lnrweb is", wallet, lnrWeb);
       og.signer = signer;
-      og.provider = window.lnrProvider;
+      og.provider = provider;
       og.lnr = lnr;
       og.lnrWeb = lnrWeb;
       window.og = og;
