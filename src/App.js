@@ -3,8 +3,9 @@ import './App.css';
 import { CssBaseline, PaletteMode, ThemeProvider } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import Navbar from './components/Navbar';
-
-
+import { Route, Routes, Navigate } from "react-router-dom"
+import Main from './Main';
+import { BrowserRouter } from "react-router-dom"
 
 const theme = createTheme({
   palette: {
@@ -34,13 +35,19 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <BrowserRouter>
       <Navbar />
-    <div className="App">
-      
+      <div className="App">
+      <Routes>
+
+        <Route path="/og/:id" element={<Main />}/>
+        <Route path="/" element={<Navigate to="/og/lnrforever.og" replace />} />
+      </Routes>     
     <iframe id="chain_frame" className="frame">
     
     </iframe>
     </div>
+    </BrowserRouter>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect, lazy } from 'react';
+import { useLocation, useNavigate, useParams  } from 'react-router-dom';
 import '../App.css';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -19,28 +20,6 @@ import Alert from '@mui/material/Alert';
 
 import LNR from '../modules/lnr.mjs';
 import LNR_WEB from '../modules/lnr_web.mjs'
-
-// const LNR = require("LNR");
-// const LNR_WEB= require("LNR_WEB")
-
-// "LNR": "./lnr-ethers-module-1.1.0.js",
-// "LNR_WEB": "./lnr-web-module-0.1.6.js"
-
-// /*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
-// import * as LNR from "./lnr-ethers-module-1.1.0.js";
-// /*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
-// import * as LNR_WEB from './lnr-web-module-0.1.6.js'
-
-
-
-
-
-// const LNR = require("../utils/lnr-ethers-1.1.0")
-// const LNR_WEB = require('../utils/lnr-web-0.1.5')
-
-// const LNR = await import("../utils/lnr-ethers-1.1.0")
-// const LNR_WEB = await import('../utils/lnr-web-0.1.5')
-
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -86,9 +65,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
   const [name, setName] = useState('Connect');
   const [address, setAddress] = useState();
-  const [searchName, setSearchName] = useState();
+  const [searchName, setSearchName] = useState("lnrforever.og");
   const [showAlert, setShowAlert] = useState();
   const [showLogo, setShowLogo] = useState(true);
+  const [ogPage, setOgPage] = useState();
+  const [sw, setSw] = useState(false)
 
 
 
@@ -126,18 +107,68 @@ export default function Navbar() {
 
   var signer;
 
-  const handleSearch = async()=>{
-
-    if(!address){
-      return(handleAlert("con"))
+  const isOg = (name)=>{
+    if(!name || name.length < 1){
+      return(false)
     }
 
-    if(searchName && searchName.length > 1 && searchName.endsWith(".og")){
+    if(name){
+      console.log("checking name", name)
+      var nameArray = name.split('.')
+      if(nameArray[1] == "og"){
+        return(true)
+      }
+    }
+    return(false)
+    
+  }
+
+
+  const handleParams = async (p) =>{
+    if(p){
+      console.log("p is", p)
+      await handleSearch(p.toString())
+      
+    }
+  }
+
+  const handleURL = (searched) =>{
+
+    if(searched !== ogPage){
+      const url = new URL(window.location);
+      console.log("id is", id, url)
+      window.history.pushState('data', "", searched);
+    }
+
+  }
+
+
+  const handleSearch = async(p="null")=>{
+    var toSearch = searchName
+    if(p && p !== "null" && typeof(p) == "string"){
+      var toSearch = p
+    }
+
+    //window.history.replaceState("", "",/toSearch)
+
+    
+
+    // console.log("param is", typeof(param), toSearch)
+
+    // if(toSearch.length <1){
+    //   return
+    // }
+
+    console.log("hmm ",toSearch, isOg(toSearch))
+
+    if(toSearch && toSearch.length > 1 && isOg(toSearch)){
+      handleURL(toSearch);
       if(typeof(window.og.lnrWeb) === "undefined"){
         return(handleAlert("con"))
       }
       try{
-        var website = await window.og.lnrWeb.getWebsite(searchName)
+        setSearchName(toSearch)
+        var website = await window.og.lnrWeb.getWebsite(toSearch)
         if(website){
           setShowLogo(false)
           document.getElementById('chain_frame').srcdoc = website.finalData;
@@ -153,13 +184,14 @@ export default function Navbar() {
       }
 
     }
-    if(searchName && searchName.length > 1 && !searchName.endsWith(".og")){
+    if(toSearch && toSearch.length > 1 && !isOg(toSearch)){
+      handleURL(toSearch+".og");
       if(typeof(window.og) === "undefined" || typeof(window.og.lnrWeb) === "undefined"){
         return(handleAlert("con"))
       }
-      setSearchName(searchName + ".og")
+      setSearchName(toSearch + ".og")
       try{
-        var website = await window.og.lnrWeb.getWebsite(searchName + ".og")
+        var website = await window.og.lnrWeb.getWebsite(toSearch + ".og")
         if(website){
           document.getElementById('chain_frame').srcdoc = website.finalData;
         }
@@ -184,17 +216,16 @@ export default function Navbar() {
 
 
 
+
+
   // //console.log("lnr is", LNR)
 
   const connectWallet = async()=>{
-    // if(!window.LNR || !window.LNR_WEB){
-    //   return(handleAlert("oops"))
-    // }
+    
+    if(!provider){
+      return
+    }
 
-
-    console.log("window isssss", LNR)
-
-    if(!address){
       var og = {
         ethers: ethers,
         signer: null,
@@ -204,8 +235,17 @@ export default function Navbar() {
         website: null
       }
   
-      //console.log("clicked")
-      await provider.send("eth_requestAccounts", []);
+      console.log("CONNECTING")
+      
+
+      try{
+        await provider.send("eth_requestAccounts", []);
+      }
+      catch(e){
+        console.log("e is", e)
+      }
+
+
       const signer = provider.getSigner();
 
       console.log("provider ios", provider)
@@ -221,34 +261,36 @@ export default function Navbar() {
       }
       
       var wallet = await signer.getAddress();
-      //console.log("lnrweb is", wallet, lnrWeb);
+      console.log("lnrweb is", wallet);
       og.signer = signer;
       og.provider = provider;
       og.lnr = lnr;
       og.lnrWeb = lnrWeb;
       window.og = og;
-  
-      if(wallet){
-        setAddress(wallet)
-        return(await handleName(wallet))
-      }
-    }
 
-    if(address){
-      await window.ethereum.request({
-        method: "eth_requestAccounts",
-        params: [{eth_accounts: {}}]
-    })
-    setAddress()
-    setName('Connect')
-    }
+
+      if(wallet){
+        setSw(true)
+        setAddress(wallet)
+        await handleName(wallet)
+      }
+
+      var pathArray = (id.pathname).split('/')
+      if(pathArray[1] == "og" && (pathArray[2]).length > 0){
+        handleParams(pathArray[2])
+        // setSearchName(pathArray[2])
+        // if(typeof(pathArray[2]) == "string"){
+        //   await handleSearch(pathArray[2])
+        // }
+        
+      }
+      else{
+        await handleSearch(searchName)
+      }
 
 
     return
 
-    //document.getElementById('eth_login_button').innerHTML = "Wallet:" + wallet.substring(0,6) + "..." + wallet.slice(wallet.length-4);
-
-    //document.getElementById('web3Buttons').style.display = "inline-block";
   }
 
 
@@ -306,6 +348,45 @@ export default function Navbar() {
 
   }
 
+
+  const id = useLocation();
+  useEffect(() => {
+    var pathArray = (id.pathname).split('/')
+    if(pathArray[1] == "og" && (pathArray[2]).length > 0){
+      setOgPage(pathArray[2])
+    }
+  });
+
+  useEffect(() =>{
+
+    const tryConnect = async () => {
+      await connectWallet();
+    }
+
+    if(!address && !window.ethereum.selectedAddress){
+      handleAlert("con")
+    }
+    else{
+      handleAlert("con")
+      console.log("not connected")
+    }
+
+  },[])
+
+
+  useEffect(()=>{
+    const tryConnect = async () => {
+      await connectWallet();
+    }
+
+     if(window.ethereum.selectedAddress !== address && ethers.utils.isAddress(window.ethereum.selectedAddress) && sw !== true){
+      console.log("here")
+        tryConnect();
+     }
+
+   })
+
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -326,7 +407,7 @@ export default function Navbar() {
 
       <MenuItem onClick={()=>(openLinagee(), handleMenuClose)}>
       <ListItemIcon>
-      <img className='black' width="30px" height="30px" src={'logo.svg'} />
+      <img className='black' width="30px" height="30px" src={'/logo.svg'} />
       </ListItemIcon>
         Linagee.vision
         </MenuItem>
@@ -373,7 +454,7 @@ export default function Navbar() {
             
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <img width="50px" height="50px" src={'logo.svg'} />
+            <img width="50px" height="50px" src={'/logo.svg'} />
           </Typography>
           <Search>
             <StyledInputBase
@@ -389,7 +470,7 @@ export default function Navbar() {
               }}
             />
             <IconButton onClick={handleSearch}>
-            <img width="20px" height="20px" src={'searchicon.svg'} />
+            <img width="20px" height="20px" src={'/searchicon.svg'} />
             </IconButton>
           </Search>
           <Box sx={{ flexGrow: 1 }} />
@@ -405,7 +486,7 @@ export default function Navbar() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <img width="15px" height="25px" src={'more.svg'} />
+              <img width="15px" height="25px" src={'/more.svg'} />
             </IconButton>
           </Box>
         </Toolbar>
@@ -417,7 +498,7 @@ export default function Navbar() {
       )}
         {showLogo &&(
    
-        <img className="mainLogo fadeOut" width="200px" height="200px" src={'logo.svg'} />
+        <img className="mainLogo fadeOut" width="200px" height="200px" src={'/logo.svg'} />
     
       )}
     </Box>
