@@ -363,7 +363,7 @@ export default function Navbar() {
       await connectWallet();
     }
 
-    if(!address && !window.ethereum.selectedAddress){
+    if(window.ethereum && !address && !window.ethereum?.selectedAddress){
       handleAlert("con")
     }
     else{
@@ -379,7 +379,7 @@ export default function Navbar() {
       await connectWallet();
     }
 
-     if(window.ethereum.selectedAddress !== address && ethers.utils.isAddress(window.ethereum.selectedAddress) && sw !== true){
+     if(window.ethereum && window.ethereum?.selectedAddress !== address && ethers.utils.isAddress(window.ethereum?.selectedAddress) && sw !== true){
       console.log("here")
         tryConnect();
      }
