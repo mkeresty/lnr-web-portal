@@ -10,7 +10,7 @@ import { BrowserRouter } from "react-router-dom"
 const theme = createTheme({
   palette: {
       primary: {
-          main: "#a89be1",
+          main: "#1f1f1f",
           contrastText: "#ffffff",
       },
       secondary: {
