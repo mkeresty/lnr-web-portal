@@ -143,8 +143,6 @@ window.console = console;
     }
   }
 
-  var signer;
-
   const isOg = (name)=>{
     if(!name || name.length < 1){
       return(false)
@@ -197,9 +195,9 @@ window.console = console;
     //   return
     // }
 
-    console.log("hmm ",toSearch, isOg(toSearch))
 
     if(toSearch && toSearch.length > 1 && isOg(toSearch)){
+      console.log("to search is", toSearch)
       handleURL(toSearch);
       if(typeof(window.og.lnrWeb) === "undefined"){
         return(handleAlert("con"))
