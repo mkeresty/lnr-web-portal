@@ -139,7 +139,7 @@ export default function Navbar() {
 
     if(searched !== ogPage){
       const url = new URL(window.location);
-      console.log("id is", id, url)
+      console.log(url)
       window.history.pushState('data', "", searched);
     }
 
