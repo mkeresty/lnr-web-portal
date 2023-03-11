@@ -384,7 +384,9 @@ export default function Navbar() {
       await connectWallet();
     }
 
-     if(window.ethereum && window.ethereum?.selectedAddress !== address && ethers.utils.isAddress(window.ethereum?.selectedAddress) && sw !== true){
+    //removed window.ethereum?.selectedAddress
+
+     if(window.ethereum  && ethers.utils.isAddress(window.ethereum?.selectedAddress) && sw !== true){
       console.log("here")
         tryConnect();
      }
@@ -398,7 +400,7 @@ export default function Navbar() {
     if(window.og?.redirect){
         window.og.redirect = async function(domain){
           console.log("new domain is ", domain);
-          if(window.ethereum  && domain && address && ethers.utils.isAddress(window.ethereum?.selectedAddress) ){
+          if(window.ethereum  && domain && address && window.ethereum?.selectedAddress && ethers.utils.isAddress(window.ethereum?.selectedAddress) ){
             const url = 'https://web.linagee.vision/og/'+domain;
             window.open(url, '_blank', 'noreferrer');    
           }
