@@ -384,9 +384,7 @@ export default function Navbar() {
       await connectWallet();
     }
 
-    //removed window.ethereum?.selectedAddress
-
-     if(window.ethereum  && ethers.utils.isAddress(window.ethereum?.selectedAddress) && sw !== true){
+     if(window.ethereum && window.ethereum?.selectedAddress !== address && ethers.utils.isAddress(window.ethereum?.selectedAddress) && sw !== true){
       console.log("here")
         tryConnect();
      }
