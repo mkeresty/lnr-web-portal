@@ -70,6 +70,44 @@ export default function Navbar() {
   const [showLogo, setShowLogo] = useState(true);
   const [ogPage, setOgPage] = useState();
   const [sw, setSw] = useState(false)
+  const [log2, setlog2 ] = useState(['start'])
+
+
+  // define a new console
+var console=(function(oldCons){
+
+  const pushto = (text) =>{
+    setlog2(oldArray => [...oldArray,text] );
+  }
+
+  return {
+    
+      log: function(text){
+          oldCons.log(text);
+          pushto(text)
+
+          // Your code
+      },
+      info: function (text) {
+          oldCons.info(text);
+          pushto(text)
+          // Your code
+      },
+      warn: function (text) {
+          oldCons.warn(text);
+          pushto(text)
+          // Your code
+      },
+      error: function (text) {
+          oldCons.error(text);
+          pushto(text)
+          // Your code
+      }
+  };
+}(window.console));
+
+//Then redefine the old console
+window.console = console;
 
 
 
@@ -388,9 +426,7 @@ export default function Navbar() {
       console.log("here")
         tryConnect();
      }
-     else{
-      console.log("cant connect")
-     }
+
 
    })
 
@@ -514,6 +550,7 @@ export default function Navbar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {log2}
       {showAlert &&(
         <Alert className="alrt fadeOut" severity="warning">{showAlert} </Alert>
       )}
