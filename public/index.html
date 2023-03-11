@@ -9,6 +9,41 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <script>
+        // define a new console
+          var console=(function(oldCons){
+            let ele = document.getElementById('container');
+        
+
+          return {
+            
+              log: function(text){
+                  oldCons.log(text);
+                  ele.innerHTML += text;
+
+                  // Your code
+              },
+              info: function (text) {
+            oldCons.info(text);
+            ele.innerHTML += text;
+            // Your code
+        },
+        warn: function (text) {
+            oldCons.warn(text);
+            ele.innerHTML += text;
+            // Your code
+        },
+        error: function (text) {
+            oldCons.error(text);
+            ele.innerHTML += text;
+            // Your code
+        }
+          };
+          }(window.console));
+
+          //Then redefine the old console
+          window.console = console;
+    </script>
     <!-- <script src="./lnr-ethers-module-1.1.0.js"  type="application/javascript"></script>
     <script src="./lnr-web-module-0.1.6.js"  type="application/javascript"></script> -->
     <!-- <script type="importmap">
@@ -59,6 +94,11 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <div id='container'>
+      <p>
+          Content inside p element.
+      </p>
+  </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

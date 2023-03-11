@@ -73,26 +73,7 @@ export default function Navbar() {
   const [log2, setlog2 ] = useState(['start'])
 
 
-  // define a new console
-var console=(function(oldCons){
 
-  const pushto = (text) =>{
-    setlog2(oldArray => [...oldArray,{text}] );
-  }
-
-  return {
-    
-      log: function(text){
-          oldCons.log(text);
-          pushto(text)
-
-          // Your code
-      }
-  };
-}(window.console));
-
-//Then redefine the old console
-window.console = console;
 
 
 
