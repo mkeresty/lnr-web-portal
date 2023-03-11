@@ -119,6 +119,7 @@ export default function Navbar() {
       console.log(name)
       var nameArray = name.split('.')
       if(nameArray[1] == "og"){
+        console.log('good')
         return(true)
       }
     }
@@ -140,6 +141,7 @@ export default function Navbar() {
     if(searched !== ogPage){
       const url = new URL(window.location);
       console.log(url)
+      console.log("pushed")
       window.history.pushState('data', "", searched);
     }
 
@@ -164,17 +166,20 @@ export default function Navbar() {
 
 
     if(toSearch && toSearch.length > 1 && isOg(toSearch)){
-      console.log("to search is", toSearch)
-      handleURL(toSearch);
       if(typeof(window.og.lnrWeb) === "undefined"){
         return(handleAlert("con"))
       }
       try{
         setSearchName(toSearch)
         var website = await window.og.lnrWeb.getWebsite(toSearch)
+        console.log("found")
+        console.log(website.toString())
         if(website){
           setShowLogo(false)
           document.getElementById('chain_frame').srcdoc = website.finalData;
+          console.log("to search is", toSearch)
+          handleURL(toSearch);
+          return
         }
         else{
           handleAlert("oops")
@@ -188,7 +193,7 @@ export default function Navbar() {
 
     }
     if(toSearch && toSearch.length > 1 && !isOg(toSearch)){
-      handleURL(toSearch+".og");
+      
       if(typeof(window.og) === "undefined" || typeof(window.og.lnrWeb) === "undefined"){
         return(handleAlert("con"))
       }
@@ -197,9 +202,12 @@ export default function Navbar() {
         var website = await window.og.lnrWeb.getWebsite(toSearch + ".og")
         if(website){
           document.getElementById('chain_frame').srcdoc = website.finalData;
+          handleURL(toSearch+".og");
+          return
         }
         else{
           handleAlert("oops")
+          return
 
         }
       }
@@ -207,6 +215,7 @@ export default function Navbar() {
         //console.log(e)
         handleAlert(e)
       }
+      return
 
     }
 
