@@ -77,7 +77,7 @@ export default function Navbar() {
 var console=(function(oldCons){
 
   const pushto = (text) =>{
-    setlog2(oldArray => [...oldArray,text] );
+    setlog2(oldArray => [...oldArray,{text}] );
   }
 
   return {
