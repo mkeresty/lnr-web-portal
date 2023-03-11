@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect, lazy } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocation, useNavigate, useParams  } from 'react-router-dom';
 import '../App.css';
 import { styled, alpha } from '@mui/material/styles';
@@ -19,7 +20,9 @@ import { ethers, BrowserProvider } from 'ethers';
 import Alert from '@mui/material/Alert';
 
 import LNR from '../modules/lnr.mjs';
-import LNR_WEB from '../modules/lnr_web.mjs'
+import LNR_WEB from '../modules/lnr_web.mjs';
+
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -71,7 +74,33 @@ export default function Navbar() {
   const [ogPage, setOgPage] = useState();
   const [sw, setSw] = useState(false)
   const [log2, setlog2 ] = useState(['start'])
-  const [fin, setfinalData] = useState()
+  const [fin, setfinalData] = useState('<div>hi</div>');
+
+  const CustomIframe = ({
+    children,
+    ...props
+  }) => {
+    const [contentRef, setContentRef] = useState(null)
+  
+    const mountNode =
+      contentRef?.contentWindow?.document?.body
+  
+    return (
+      <iframe {...props} ref={setContentRef}>
+        {mountNode && createPortal(children, mountNode)}
+      </iframe>
+    )
+  }
+
+  function MyComponent(fin) {
+    const x = fin;
+    console.log("x is ", x.toString())
+    return (
+        <div dangerouslySetInnerHTML={{__html: fin}}>
+            
+        </div>
+    )
+}
 
 
 
@@ -179,7 +208,8 @@ export default function Navbar() {
           setShowLogo(false)
           //document.getElementById('chain_frame').srcdoc = website.finalData;
           setfinalData(website.finalData)
-          console.log("to search is", toSearch)
+          console.log("wwww", website.finalData)
+          console.log(website.finalData)
           handleURL(toSearch);
           return
         }
@@ -535,7 +565,12 @@ export default function Navbar() {
       {renderMobileMenu}
       {renderMenu}
       {log2}
-      <iframe srcDoc={fin}></iframe>
+      <iFrame srcDoc={fin}></iFrame>
+      <div dangerouslySetInnerHTML={{__html: fin}}/>
+      <CustomIframe title='A custom made iframe'>
+        
+        <MyComponent />
+      </CustomIframe>
       {showAlert &&(
         <Alert className="alrt fadeOut" severity="warning">{showAlert} </Alert>
       )}
