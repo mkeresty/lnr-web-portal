@@ -274,7 +274,7 @@ window.console = console;
       }
   
       console.log("CONNECTING")
-      console.log(provider)
+     
       
 
       try{
@@ -287,7 +287,7 @@ window.console = console;
 
       const signer = provider.getSigner();
 
-      console.log("provider ios", provider)
+
       
       var lnr = new LNR(ethers, signer);
       if(!provider){
@@ -298,6 +298,10 @@ window.console = console;
       if(!lnrWeb){
         return(handleAlert("oops"))
       }
+
+      console.log("provider ios", provider)
+      console.log(provider)
+      console.log(lnr)
       
       var wallet = await signer.getAddress();
       console.log("lnrweb is", wallet);
