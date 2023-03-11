@@ -232,7 +232,8 @@ export default function Navbar() {
         provider: null,
         lnr: null,
         lnrWeb: null,
-        website: null
+        website: null,
+        redirect: null
       }
   
       console.log("CONNECTING")
@@ -267,6 +268,9 @@ export default function Navbar() {
       og.lnr = lnr;
       og.lnrWeb = lnrWeb;
       window.og = og;
+      og.redirect = async function(domain){
+        setOgPage(domain)
+      }
 
 
       if(wallet){
@@ -357,6 +361,7 @@ export default function Navbar() {
     }
   });
 
+
   useEffect(() =>{
 
     const tryConnect = async () => {
@@ -383,7 +388,23 @@ export default function Navbar() {
       console.log("here")
         tryConnect();
      }
+     else{
+      console.log("cant connect")
+     }
 
+   })
+
+   useEffect(()=>{
+    if(window.og?.redirect){
+        window.og.redirect = async function(domain){
+          console.log("new domain is ", domain);
+          if(window.ethereum  && domain && address && ethers.utils.isAddress(window.ethereum?.selectedAddress) ){
+            const url = 'https://web.linagee.vision/og/'+domain;
+            window.open(url, '_blank', 'noreferrer');    
+          }
+
+      }
+    }
    })
 
 
