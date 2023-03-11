@@ -117,7 +117,7 @@ window.console = console;
 
   const handleAlert = (msg) =>{
     //console.log("msg is", msg)
-    if(msg && msg.includes("Error loading asset at derp://0x000")){
+    if(msg && typeof value == "string" &&  msg.includes("Error loading asset at derp://0x000")){
       setShowAlert("Website not published.")
       setTimeout(() => {
         setShowAlert()
