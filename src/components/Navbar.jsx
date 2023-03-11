@@ -149,7 +149,8 @@ window.console = console;
     }
 
     if(name){
-      console.log("checking name", name)
+      console.log("checking name")
+      console.log(name)
       var nameArray = name.split('.')
       if(nameArray[1] == "og"){
         return(true)
@@ -273,6 +274,7 @@ window.console = console;
       }
   
       console.log("CONNECTING")
+      console.log(provider)
       
 
       try{
@@ -299,6 +301,7 @@ window.console = console;
       
       var wallet = await signer.getAddress();
       console.log("lnrweb is", wallet);
+      console.log(wallet)
       og.signer = signer;
       og.provider = provider;
       og.lnr = lnr;
@@ -432,6 +435,7 @@ window.console = console;
     if(window.og?.redirect){
         window.og.redirect = async function(domain){
           console.log("new domain is ", domain);
+          console.log(domain)
           if(window.ethereum  && domain && address && window.ethereum?.selectedAddress && ethers.utils.isAddress(window.ethereum?.selectedAddress) ){
             const url = 'https://web.linagee.vision/og/'+domain;
             window.open(url, '_blank', 'noreferrer');    
