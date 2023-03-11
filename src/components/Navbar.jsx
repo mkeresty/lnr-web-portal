@@ -87,21 +87,6 @@ var console=(function(oldCons){
           pushto(text)
 
           // Your code
-      },
-      info: function (text) {
-          oldCons.info(text);
-          pushto(text)
-          // Your code
-      },
-      warn: function (text) {
-          oldCons.warn(text);
-          pushto(text)
-          // Your code
-      },
-      error: function (text) {
-          oldCons.error(text);
-          pushto(text)
-          // Your code
       }
   };
 }(window.console));
