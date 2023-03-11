@@ -178,7 +178,7 @@ export default function Navbar() {
           setShowLogo(false)
           document.getElementById('chain_frame').srcdoc = website.finalData;
           console.log("to search is", toSearch)
-          handleURL(toSearch);
+          //handleURL(toSearch);
           return
         }
         else{
@@ -202,7 +202,7 @@ export default function Navbar() {
         var website = await window.og.lnrWeb.getWebsite(toSearch + ".og")
         if(website){
           document.getElementById('chain_frame').srcdoc = website.finalData;
-          handleURL(toSearch+".og");
+          //handleURL(toSearch+".og");
           return
         }
         else{
