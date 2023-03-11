@@ -71,6 +71,7 @@ export default function Navbar() {
   const [ogPage, setOgPage] = useState();
   const [sw, setSw] = useState(false)
   const [log2, setlog2 ] = useState(['start'])
+  const [fin, setfinalData] = useState()
 
 
 
@@ -176,9 +177,10 @@ export default function Navbar() {
         console.log(website.toString())
         if(website){
           setShowLogo(false)
-          document.getElementById('chain_frame').srcdoc = website.finalData;
+          //document.getElementById('chain_frame').srcdoc = website.finalData;
+          setfinalData(website.finalData)
           console.log("to search is", toSearch)
-          //handleURL(toSearch);
+          handleURL(toSearch);
           return
         }
         else{
@@ -201,8 +203,9 @@ export default function Navbar() {
       try{
         var website = await window.og.lnrWeb.getWebsite(toSearch + ".og")
         if(website){
-          document.getElementById('chain_frame').srcdoc = website.finalData;
-          //handleURL(toSearch+".og");
+          //document.getElementById('chain_frame').srcdoc = website.finalData;
+          setfinalData(website.finalData)
+          handleURL(toSearch+".og");
           return
         }
         else{
@@ -532,6 +535,7 @@ export default function Navbar() {
       {renderMobileMenu}
       {renderMenu}
       {log2}
+      <iframe srcDoc={fin}></iframe>
       {showAlert &&(
         <Alert className="alrt fadeOut" severity="warning">{showAlert} </Alert>
       )}
