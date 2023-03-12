@@ -565,7 +565,7 @@ export default function Navbar() {
       {renderMobileMenu}
       {renderMenu}
       {log2}
-      <iFrame srcDoc={fin}></iFrame>
+      <iframe loading="lazy" srcDoc={fin}></iframe>
       <div dangerouslySetInnerHTML={{__html: fin}}/>
       <CustomIframe title='A custom made iframe'>
         
