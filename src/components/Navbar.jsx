@@ -207,7 +207,7 @@ export default function Navbar() {
         if(website){
           setShowLogo(false)
           document.getElementById('chain_frame').srcdoc = ""
-          document.getElementById('chain_frame').srcdoc = website.finalData;
+          document.getElementById('chain_frame').srcdoc = "<div>hello</div>";
           setfinalData(website.finalData)
           handleURL(toSearch);
           return
