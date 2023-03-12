@@ -564,6 +564,10 @@ export default function Navbar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      
+      Website data:
+      <br/> 
+      {fin}
       {showAlert &&(
         <Alert className="alrt fadeOut" severity="warning">{showAlert} </Alert>
       )}
