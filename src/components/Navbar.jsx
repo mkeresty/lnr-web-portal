@@ -206,10 +206,9 @@ export default function Navbar() {
         console.log(website.toString())
         if(website){
           setShowLogo(false)
-          //document.getElementById('chain_frame').srcdoc = website.finalData;
+          document.getElementById('chain_frame').srcdoc = ""
+          document.getElementById('chain_frame').srcdoc = website.finalData;
           setfinalData(website.finalData)
-          console.log("wwww", website.finalData)
-          console.log(website.finalData)
           handleURL(toSearch);
           return
         }
@@ -233,7 +232,8 @@ export default function Navbar() {
       try{
         var website = await window.og.lnrWeb.getWebsite(toSearch + ".og")
         if(website){
-          //document.getElementById('chain_frame').srcdoc = website.finalData;
+          document.getElementById('chain_frame').srcdoc = ""
+          document.getElementById('chain_frame').srcdoc = website.finalData;
           setfinalData(website.finalData)
           handleURL(toSearch+".og");
           return
@@ -564,9 +564,6 @@ export default function Navbar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      {log2}
-      <iframe type="text/html" target="_parent" srcDoc={fin} loading="lazy" ></iframe>
-
       {showAlert &&(
         <Alert className="alrt fadeOut" severity="warning">{showAlert} </Alert>
       )}
