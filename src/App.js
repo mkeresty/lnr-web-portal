@@ -44,7 +44,9 @@ function App() {
         <Route path="/" element={<Navigate to="/og/lnrforever.og" replace />} />
       </Routes>     
     <iframe id="chain_frame" className="frame">
-    
+    </iframe>
+    local
+    <iframe id="chain_frame2" className="frame">
     </iframe>
     </div>
     </BrowserRouter>
