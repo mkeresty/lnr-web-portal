@@ -565,12 +565,8 @@ export default function Navbar() {
       {renderMobileMenu}
       {renderMenu}
       {log2}
-      <iframe loading="lazy" srcDoc={fin}></iframe>
-      <div dangerouslySetInnerHTML={{__html: fin}}/>
-      <CustomIframe title='A custom made iframe'>
-        
-        <MyComponent />
-      </CustomIframe>
+      <iframe type="text/html" target="_parent" srcDoc={fin} loading="lazy" ></iframe>
+
       {showAlert &&(
         <Alert className="alrt fadeOut" severity="warning">{showAlert} </Alert>
       )}
