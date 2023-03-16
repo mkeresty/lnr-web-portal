@@ -45,8 +45,6 @@ function App() {
       </Routes>     
     <iframe id="chain_frame" className="frame">
     </iframe>
-    local
-
     </div>
     </BrowserRouter>
     </ThemeProvider>
