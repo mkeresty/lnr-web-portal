@@ -94,7 +94,7 @@ export default function Navbar() {
 
   function MyComponent(fin) {
     const x = fin;
-    console.log("x is ", x.toString())
+    //console.log("x is ", x.toString())
     return (
         <div dangerouslySetInnerHTML={{__html: fin}}>
             
@@ -112,14 +112,14 @@ export default function Navbar() {
 
 
   const handleAlert = (msg) =>{
-    //console.log("msg is", msg)
+    ////console.log("msg is", msg)
     if(msg && typeof value == "string" &&  msg.includes("Error loading asset at derp://0x000")){
       setShowAlert("Website not published.")
       setTimeout(() => {
         setShowAlert()
       }, 3000);
       return
-      ////console.log("go")
+      //////console.log("go")
       //setShowAlert()
     }
     else if(msg && msg == "con"){
@@ -145,11 +145,11 @@ export default function Navbar() {
     }
 
     if(name){
-      console.log("checking name")
-      console.log(name)
+      //console.log("checking name")
+      //console.log(name)
       var nameArray = name.split('.')
       if(nameArray[1] == "og"){
-        console.log('good')
+        //console.log('good')
         return(true)
       }
     }
@@ -160,7 +160,7 @@ export default function Navbar() {
 
   const handleParams = async (p) =>{
     if(p){
-      console.log("p is", p)
+      //console.log("p is", p)
       await handleSearch(p.toString())
       
     }
@@ -168,12 +168,11 @@ export default function Navbar() {
 
   const handleURL = (searched) =>{
 
-    if(searched !== ogPage){
       const url = new URL(window.location);
-      console.log(url)
-      console.log("pushed")
+      //console.log(url)
+      //console.log("pushed")
       window.history.pushState('data', "", searched);
-    }
+
 
   }
 
@@ -190,7 +189,7 @@ export default function Navbar() {
 
     
 
-    // console.log("param is", typeof(param), toSearch)
+    // //console.log("param is", typeof(param), toSearch)
 
     // if(toSearch.length <1){
     //   return
@@ -204,7 +203,7 @@ export default function Navbar() {
       try{
         setSearchName(toSearch)
         var website = await window.og.lnrWeb.getWebsite(toSearch)
-        console.log(website.toString())
+        //console.log(website.toString())
         if(website){
           setShowLogo(false)
           document.getElementById('chain_frame').srcdoc = ""
@@ -219,7 +218,7 @@ export default function Navbar() {
         }
       }
       catch(e){
-        //console.log(e)
+        ////console.log(e)
         handleAlert(e)
       }
 
@@ -246,7 +245,7 @@ export default function Navbar() {
         }
       }
       catch(e){
-        //console.log(e)
+        ////console.log(e)
         handleAlert(e)
       }
       return
@@ -264,7 +263,7 @@ export default function Navbar() {
 
 
 
-  // //console.log("lnr is", LNR)
+  // ////console.log("lnr is", LNR)
 
   const connectWallet = async()=>{
     
@@ -282,7 +281,7 @@ export default function Navbar() {
         redirect: null
       }
   
-      console.log("CONNECTING")
+      //console.log("CONNECTING")
      
       
 
@@ -290,7 +289,7 @@ export default function Navbar() {
         await provider.send("eth_requestAccounts", []);
       }
       catch(e){
-        console.log("e is", e)
+        //console.log("e is", e)
       }
 
 
@@ -308,13 +307,13 @@ export default function Navbar() {
         return(handleAlert("oops"))
       }
 
-      console.log("provider ios", provider)
-      console.log(provider)
-      console.log(lnr)
+      //console.log("provider ios", provider)
+      //console.log(provider)
+      //console.log(lnr)
       
       var wallet = await signer.getAddress();
-      console.log("lnrweb is", wallet);
-      console.log(wallet)
+      //console.log("lnrweb is", wallet);
+      //console.log(wallet)
       og.signer = signer;
       og.provider = provider;
       og.lnr = lnr;
@@ -376,7 +375,7 @@ export default function Navbar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleOpenNavMenu = (event) => {
-    //console.log("opening")
+    ////console.log("opening")
     setAnchorEl(event.currentTarget);
   };
 
@@ -398,7 +397,7 @@ export default function Navbar() {
   };
 
   const openLinagee = ()=>{
-    //console.log("clkicked")
+    ////console.log("clkicked")
     const url = 'https://linagee.vision/';
     window.open(url, '_blank', 'noreferrer');
 
@@ -425,7 +424,7 @@ export default function Navbar() {
     }
     else{
       handleAlert("con")
-      console.log("not connected")
+      //console.log("not connected")
     }
 
   },[])
@@ -437,7 +436,7 @@ export default function Navbar() {
     }
 
      if(window.ethereum && window.ethereum?.selectedAddress !== address && ethers.utils.isAddress(window.ethereum?.selectedAddress) && sw !== true){
-      console.log("here")
+      //console.log("here")
         tryConnect();
      }
 
@@ -447,8 +446,8 @@ export default function Navbar() {
    useEffect(()=>{
     if(window.og?.redirect){
         window.og.redirect = async function(domain){
-          console.log("new domain is ", domain);
-          console.log(domain)
+          //console.log("new domain is ", domain);
+          //console.log(domain)
           if(window.ethereum  && domain && address && window.ethereum?.selectedAddress && ethers.utils.isAddress(window.ethereum?.selectedAddress) ){
             const url = 'https://web.linagee.vision/og/'+domain;
             window.open(url, '_blank', 'noreferrer');    
