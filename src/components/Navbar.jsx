@@ -21,7 +21,7 @@ import Alert from '@mui/material/Alert';
 
 import LNR from '../modules/lnr.mjs';
 import LNR_WEB from '../modules/lnr_web.mjs';
-
+import {ens_normalize} from '@adraffy/ens-normalize';
 
 
 
@@ -183,6 +183,8 @@ export default function Navbar() {
     if(p && p !== "null" && typeof(p) == "string"){
       var toSearch = p
     }
+
+    var toSearch = ens_normalize(toSearch);
 
     //window.history.replaceState("", "",/toSearch)
 
