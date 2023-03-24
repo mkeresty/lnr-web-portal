@@ -74,6 +74,16 @@
   z-index: 1000;
 }
 
+.grtlogo {
+  position: absolute;
+  bottom: 0px;
+  right: 1vh;
+  height: 150px;
+  width: 150px;
+  max-width: 20%;
+
+  height: auto;
+}
 @-webkit-keyframes fadeOut {
   0% {opacity: 1;}
   100% {opacity: 0;}

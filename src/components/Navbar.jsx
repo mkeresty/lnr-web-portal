@@ -75,6 +75,7 @@ export default function Navbar() {
   const [sw, setSw] = useState(false)
   const [log2, setlog2 ] = useState(['start'])
   const [fin, setfinalData] = useState('<div>hi</div>');
+  const [islnrforever, setlnrforever] = useState();
 
   const CustomIframe = ({
     children,
@@ -178,6 +179,7 @@ export default function Navbar() {
 
 
   const handleSearch = async(p="null")=>{
+    setlnrforever(false)
     var toSearch = searchName
     if(p && p !== "null" && typeof(p) == "string"){
       var toSearch = p
@@ -199,6 +201,9 @@ export default function Navbar() {
     if(toSearch && toSearch.length > 1 && isOg(toSearch)){
       if(typeof(window.og.lnrWeb) === "undefined"){
         return(handleAlert("con"))
+      }
+      if(toSearch == "lnrforever.og" || toSearch == "lnrforever"){
+        setlnrforever(true)
       }
       try{
         setSearchName(toSearch)
@@ -228,6 +233,9 @@ export default function Navbar() {
       if(typeof(window.og) === "undefined" || typeof(window.og.lnrWeb) === "undefined"){
         return(handleAlert("con"))
       }
+      if(toSearch == "lnrforever.og" || toSearch == "lnrforever"){
+        setlnrforever(true)
+      }
       setSearchName(toSearch + ".og")
       try{
         var website = await window.og.lnrWeb.getWebsite(toSearch + ".og")
@@ -251,6 +259,7 @@ export default function Navbar() {
       return
 
     }
+
 
 
 
@@ -571,6 +580,9 @@ export default function Navbar() {
    
         <img className="mainLogo fadeOut" width="200px" height="200px" src={'/logo.svg'} />
     
+      )}
+      {islnrforever &&(
+        <img className="grtlogo fadeOut" src={'/grt.svg'} />
       )}
     </Box>
   );
